@@ -41,17 +41,20 @@ function OwnProfessionsService:GetTradeSkillProfessionData()
     end
 
     -- check if is link
-    local tradeSkillIsLink, tradeSkillPlayerName = IsTradeSkillLinked();
-    local longTradeSkillPlayerName = nil;
-    if (tradeSkillIsLink) then
-        -- get long name
-        longTradeSkillPlayerName = addon:GetService("player"):GetLongName(tradeSkillPlayerName);
+	local tradeSkillIsLink, tradeSkillPlayerName
+	local longTradeSkillPlayerName = nil
+	if addon.isWrath then
+		tradeSkillIsLink, tradeSkillPlayerName = IsTradeSkillLinked()
+		if (tradeSkillIsLink) then
+			-- get long name
+			longTradeSkillPlayerName = addon:GetService("player"):GetLongName(tradeSkillPlayerName);
 
-        -- check if is guild mate
-        if (not Guildmates or not Guildmates[longTradeSkillPlayerName]) then
-            return;
-        end
-    end
+			-- check if is guild mate
+			if (not Guildmates or not Guildmates[longTradeSkillPlayerName]) then
+				return;
+			end
+		end
+	end
 
     -- get amount of trade skills
     local tradeSkillAmount = GetNumTradeSkills();

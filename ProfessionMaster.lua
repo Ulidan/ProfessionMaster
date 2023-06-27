@@ -42,7 +42,8 @@ function ProfessionMasterAddon:Create()
     local wowBuild = GetBuildInfo();
 
     -- create addon and add empty holders
-    local addon = {
+	local _,_,_,interface = GetBuildInfo()
+	local addon = {
         name = addonName,
         version = addonVersion,
         shortcut = addonShortcut,
@@ -51,7 +52,9 @@ function ProfessionMasterAddon:Create()
         frame = CreateFrame("Frame"),
         logLevel = 0,
         loaded = false,
-        isEra = string.find(wowBuild, "1.") == 1
+        isEra = (interface>10000 and interface<20000),
+		isTBC = (interface>20000 and interface<30000),
+		isWrath = (interface>30000 and interface<40000),
     };
     setmetatable(addon, ProfessionMasterAddon);
     

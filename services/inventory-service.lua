@@ -16,6 +16,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 --]]
+-- compatibility locals
+local GetContainerNumSlots = GetContainerNumSlots or C_Container.GetContainerNumSlots
+local GetContainerItemID = GetContainerItemID or C_Container.GetContainerItemID
+local GetContainerItemInfo = GetContainerItemInfo or C_Container.GetContainerItemInfo
+
 local addon = _G.professionMaster;
 
 -- define service
@@ -35,10 +40,10 @@ function InventoryService:ScanInventory()
     -- iterate all bags
     for bag = 0, NUM_BAG_SLOTS do
         -- iterate all slots in bag
-        for slot = 1, C_Container.GetContainerNumSlots(bag) do
+        for slot = 1, GetContainerNumSlots(bag) do
             -- get item id and amount
-            local itemId = C_Container.GetContainerItemID(bag, slot);
-            local _, amount = C_Container.GetContainerItemInfo(bag, slot);
+            local itemId = GetContainerItemID(bag, slot);
+            local _, amount = GetContainerItemInfo(bag, slot);
 
             -- check if id and amount loaded
             if (itemId and amount) then

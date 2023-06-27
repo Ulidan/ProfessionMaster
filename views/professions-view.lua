@@ -200,11 +200,17 @@ function ProfessionsView:Show()
             end;
 
             -- add all date
-            item.text, item.arg1 = self:GetAddonText(nil), nil;
-            UIDropDownMenu_AddButton(item);
+			if addon.isEra then
+				maxId = 0
+			else
+				maxId = 2
+				item.text, item.arg1 = self:GetAddonText(nil), nil;
+				UIDropDownMenu_AddButton(item);
+			end
 
             -- add dates
-            for addonId = 0, 2, 1 do
+			maxId = addon.isEra and 0 or 2
+            for addonId = 0, maxId, 1 do
                 item.text, item.arg1 = self:GetAddonText(addonId), addonId;
                 UIDropDownMenu_AddButton(item);
             end
